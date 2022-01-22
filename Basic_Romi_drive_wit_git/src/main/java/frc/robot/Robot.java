@@ -5,6 +5,13 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Spark;
+
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -13,10 +20,23 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
+
   private static final double kCountsPerRevolution = 1440.0;
   private static final double kWheelDiameterInch = 2.75591;
 
   private double startTime;
+
+  private final Encoder leftEncoder = new Encoder(4, 5); 
+  private final Encoder rightEncoder = new Encoder(6, 7);
+  private final Spark leftMotor = new Spark(0); 
+  private final Spark rightMotor = new Spark(1); 
+
+
+
+  /**
+   * This function is run when the robot is first started up and should be used for any
+   * initialization code.
+   */
 
   @Override
   public void robotInit() {
@@ -46,10 +66,16 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+    
+
+  }
 
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+
+
+  }
 
   @Override
   public void disabledInit() {}
