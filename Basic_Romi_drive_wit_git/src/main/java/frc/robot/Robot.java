@@ -21,6 +21,11 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  */
 public class Robot extends TimedRobot {
 
+  private static final double kCountsPerRevolution = 1440.0;
+  private static final double kWheelDiameterInch = 2.75591;
+
+  private double startTime;
+
   private final Encoder leftEncoder = new Encoder(4, 5); 
   private final Encoder rightEncoder = new Encoder(6, 7);
   private final Spark leftMotor = new Spark(0); 
@@ -28,24 +33,37 @@ public class Robot extends TimedRobot {
 
 
 
-
-
-
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
+
   @Override
-  public void robotInit() {}
+  public void robotInit() {
+    leftEncoder.reset();
+    rightEncoder.reset();
+  }
 
   @Override
   public void robotPeriodic() {}
 
   @Override
-  public void autonomousInit() {}
+  public void autonomousInit() {
+    startTime = Timer.getFPGATimestamp();
+  }
 
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    double time = Timer.getFPGATimestamp();
+
+    if (time - startTime < 3) {
+      leftmotor.set(0.6);
+      rightmotor.set(-0.6);
+    } else {
+      leftmotor.set(0);
+      rightmotor.set(0);
+    }
+  }
 
   @Override
   public void teleopInit() {
