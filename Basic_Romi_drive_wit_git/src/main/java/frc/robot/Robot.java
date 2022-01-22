@@ -5,12 +5,15 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+
+import java.util.function.DoubleBinaryOperator;
+
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Spark;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+//import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 
 /**
@@ -26,10 +29,12 @@ public class Robot extends TimedRobot {
 
   private double startTime;
 
+  private final Joystick joy1 = new Joystick(0);
   private final Encoder leftEncoder = new Encoder(4, 5); 
   private final Encoder rightEncoder = new Encoder(6, 7);
   private final Spark leftMotor = new Spark(0); 
   private final Spark rightMotor = new Spark(1); 
+
 
 
 
@@ -57,22 +62,30 @@ public class Robot extends TimedRobot {
     double time = Timer.getFPGATimestamp();
 
     if (time - startTime < 3) {
-      leftmotor.set(0.6);
-      rightmotor.set(-0.6);
+      leftMotor.set(0.6);
+      rightMotor.set(-0.6);
     } else {
-      leftmotor.set(0);
-      rightmotor.set(0);
+      leftMotor.set(0);
+      rightMotor.set(0);
     }
   }
 
   @Override
   public void teleopInit() {
-    
+    leftEncoder.reset();
+    rightEncoder.reset();    
 
   }
 
   @Override
   public void teleopPeriodic() {
+    double speed = joy1.getRawAxis(0);
+    double turn = -joy1.getRawAxis(1);
+    double left = speed + turn;
+    double right = speed - turn;
+
+    leftMotor.set(left);
+    rightMotor.set(right);
 
 
   }
